@@ -279,10 +279,36 @@
   line-height:1.5;
 }
 
+/* 📸 FLASH EFFECT */
+.flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* animasi kilatan */
+.flash.active {
+  animation: flashAnim 0.4s ease-out;
+}
+
+@keyframes flashAnim {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
   </style>
 </head>
 
 <body>
+
+    <div class="flash" id="flash"></div>
 
   <!-- BACKGROUND DECOR -->
   <div class="bg-item book-icon"></div>
@@ -379,7 +405,20 @@ function toggleMusic(){
     ui.classList.add("paused");
   }
 }
-  </script>
 
+const flash = document.getElementById("flash");
+
+function cameraFlash() {
+  flash.classList.remove("active");
+  void flash.offsetWidth;
+  flash.classList.add("active");
+}
+
+/* 📸 FLASH BERKALA */
+setInterval(() => {
+  cameraFlash();
+}, 5000); // tiap 4 detik (ubah sesuai keinginan)
+
+  </script>
 </body>
 </html>
