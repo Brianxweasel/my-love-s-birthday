@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gift For You 💖</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Comic Sans MS", cursive;
+    }
+
+    body{
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      position:relative;
+
+      background:linear-gradient(
+      to bottom,
+      #89c2ff 0%,
+      #b8d8ff 30%,
+      #ffd6eb 70%,
+      #ff9fcf 100%
+      );
+    }
+
+    /* 🔊 MUSIC CONTROL */
+.music-control{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:999;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 14px;
+  border-radius:40px;
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(8px);
+  cursor:pointer;
+}
+
+/* 💿 VINYL */
+.vinyl{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background: radial-gradient(circle at center,
+    #111 20%,
+    #333 40%,
+    #000 70%
+  );
+  position:relative;
+
+  animation: spin 2s linear infinite;
+}
+
+/* lubang tengah */
+.vinyl::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:10px;
+  height:10px;
+  background:#999;
+  border-radius:50%;
+  transform:translate(-50%, -50%);
+}
+
+/* pause state */
+.paused .vinyl{
+  animation-play-state: paused;
+  opacity:0.5;
+}
+
+/* ROTATION */
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+/* TEXT */
+.music-title{
+  color:white;
+  font-size:14px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+    /* PIXEL SUN */
+    .sun{
+      position:absolute;
+      top:60px;
+      right:100px;
+      width:140px;
+      height:140px;
+      border-radius:50%;
+      background:#ffd86b;
+
+      box-shadow:
+      0 0 0 10px #ffe89a,
+      0 0 40px rgba(255,240,184,0.9),
+      0 0 80px rgba(255,240,184,0.5);
+
+      animation:sunFloat 4s ease-in-out infinite;
+    }
+
+    /* CLOUD */
+    .cloud{
+      position:absolute;
+      width:180px;
+      height:60px;
+      background:white;
+      border-radius:50px;
+      box-shadow:30px -15px white, 70px -10px white, 100px 0 white;
+      opacity:0.9;
+      animation:cloudMove linear infinite;
+    }
+
+    .c1{top:80px;left:-300px;animation-duration:20s;}
+    .c2{top:180px;left:-500px;transform:scale(.8);animation-duration:28s;}
+    .c3{top:320px;left:-400px;transform:scale(.6);animation-duration:35s;}
+    .c4{top:120px;left:-700px;transform:scale(1);animation-duration:40s;}
+
+    /* MOUNTAIN */
+    .mountain{
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:300px;
+      background:#9d7bff;
+      clip-path:polygon(
+      0% 100%,10% 70%,20% 100%,35% 55%,
+      50% 100%,65% 60%,80% 100%,100% 50%,100% 100%);
+    }
+
+    .mountain2{
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:220px;
+      background:#7f5ae0;
+      clip-path:polygon(
+      0% 100%,15% 65%,30% 100%,50% 50%,
+      70% 100%,85% 70%,100% 100%);
+    }
+
+    /* CARD */
+    .card{
+      position:relative;
+      z-index:5;
+      width:420px;
+      padding:40px 30px;
+      border-radius:30px;
+
+      background:rgba(255,255,255,0.2);
+      backdrop-filter:blur(10px);
+
+      border:3px solid rgba(255,255,255,0.4);
+      text-align:center;
+    }
+
+    .card h1{
+      color:white;
+      font-size:42px;
+      text-shadow:3px 3px 0 #ff9fcf;
+    }
+
+    .card p{
+      margin-top:20px;
+      color:white;
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .gift-btn{
+      margin-top:30px;
+      padding:16px 40px;
+      border:none;
+      border-radius:50px;
+      background:#ff5fa2;
+      color:white;
+      font-size:20px;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    .btn{
+      padding:18px 45px;
+      border:none;
+      border-radius:50px;
+      background:#ff4f81;
+      color:white;
+      font-size:24px;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 0 15px rgba(255,79,129,0.5);
+      animation:buttonFloat 2s ease-in-out infinite;
+    }
+
+    .gift-btn:hover{
+      transform:scale(1.08);
+      background:#ff3d8d;
+    }
+
+    @keyframes cloudMove{
+      from{transform:translateX(-300px);}
+      to{transform:translateX(1800px);}
+    }
+
+    @keyframes sunFloat{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+    }
+
+    @keyframes buttonFloat{
+      0%,100%{transform:translateY(0px);}
+      50%{transform:translateY(-8px);}
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- 🔊 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music/beabadoobee - If You Want To.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MUSIC UI -->
+<div class="music-control" onclick="toggleMusic()">
+  <div class="vinyl"></div>
+  <span class="music-title">If You Want To - beabadoobee</span>
+</div>
+
+<!-- SUN -->
+<div class="sun"></div>
+
+<!-- CLOUD -->
+<div class="cloud c1"></div>
+<div class="cloud c2"></div>
+<div class="cloud c3"></div>
+<div class="cloud c4"></div>
+
+<!-- MOUNTAIN -->
+<div class="mountain"></div>
+<div class="mountain2"></div>
+
+<!-- CARD -->
+<div class="card">
+
+  <h1>For You My Love 💖</h1>
+
+  <p> Rani Anggraeni <br><br> SELAMAT ULANG TAHUN YAA SAYANGKU :3 
+    <p></p>  maaf ya dihari yang special buat kamu ini aku ga bisa ngasih apa-apa ke kamu untuk saat ini. 
+  aku berdoa dan berharap semoga kamu kedepannya bisa jadi pribadi yang lebih baik lagi, selalu berkembang lebih baik lagi, 
+  dan selalu mendapatkan kemudahan dalam hal apapun yang kamu lakukan. semoga apa yang kamu harapkan bisa kamu gapai satu per satu 
+  aku selalu berdoa agar kamu mendapatkan kemudahan dan kelancaran dalam melakukan apapun. selalu jaga kesehatan kamu ya sayang, 
+  aku tau kamu selalu bekerja keras dan selalu berusaha. i'm very proud of you sayang <3 </p>
+
+  <button class="btn" onclick="openLetter()">
+      Press For Next 😉
+    </button>
+
+</div>
+
+<script>
+
+const music = document.getElementById("bgMusic");
+const ui = document.querySelector(".music-control");
+
+let isPlaying = false;
+
+const startTime = 60;
+const endTime = 186;
+
+/* autoplay */
+window.addEventListener("load", async () => {
+  try {
+    music.currentTime = startTime;
+    await music.play();
+    isPlaying = true;
+  } catch (e) {
+    console.log("Autoplay diblokir");
+  }
+});
+
+/* loop bagian lagu */
+music.addEventListener("timeupdate", () => {
+  if (music.currentTime >= endTime) {
+    music.currentTime = startTime;
+    music.play();
+  }
+});
+
+/* fallback klik */
+document.addEventListener("click", () => {
+  if (!isPlaying) {
+    music.currentTime = startTime;
+    music.play();
+    isPlaying = true;
+    ui.classList.remove("paused");
+  }
+});
+
+/* toggle music */
+function toggleMusic(){
+  if (music.paused) {
+    music.play();
+    isPlaying = true;
+    ui.classList.remove("paused");
+  } else {
+    music.pause();
+    isPlaying = false;
+    ui.classList.add("paused");
+  }
+}
+
+function openLetter(){
+  window.location.href = "gift2.html";
+}
+
+</script>
+
+</body>
+</html>

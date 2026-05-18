@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Capture Moment 📖✨</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Comic Sans MS", cursive;
+    }
+
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg,#ffe6f0,#e6f3ff);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px;
+      overflow:hidden;
+    }
+
+    /* ===== BACKGROUND DECOR ===== */
+
+    .bg-item{
+      position:absolute;
+      opacity:.15;
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .book-icon{
+      width:180px;
+      height:140px;
+      background:#6b4f3a;
+      border-radius:10px;
+      left:40px;
+      top:80px;
+      transform:rotate(-10deg);
+    }
+
+    .book-icon::before{
+      content:"";
+      position:absolute;
+      width:160px;
+      height:120px;
+      background:#fff;
+      top:10px;
+      left:10px;
+      border-radius:6px;
+    }
+
+    .pencil{
+      width:200px;
+      height:20px;
+      background:#ffd36e;
+      border-radius:10px;
+      right:60px;
+      top:120px;
+      transform:rotate(25deg);
+    }
+
+    .pencil::before{
+      content:"";
+      position:absolute;
+      right:-30px;
+      top:0;
+      width:0;
+      height:0;
+      border-top:10px solid transparent;
+      border-bottom:10px solid transparent;
+      border-left:30px solid #8b5a2b;
+    }
+
+    .camera{
+      width:160px;
+      height:110px;
+      background:#444;
+      border-radius:15px;
+      left:80px;
+      bottom:80px;
+      transform:rotate(10deg);
+    }
+
+    .camera::before{
+      content:"";
+      position:absolute;
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background:#222;
+      top:25px;
+      left:50px;
+      box-shadow:0 0 0 8px #666 inset;
+    }
+
+    /* PHOTO BOOK */
+    .book{
+      position:relative;
+      width:1000px;
+      height:750px;
+      background:#fffdf7;
+      border-radius:25px;
+      box-shadow:0 20px 60px rgba(0,0,0,.2);
+      overflow:hidden;
+      border:10px solid #f5e6c8;
+      z-index:2;
+    }
+
+    .book::before{
+      content:"";
+      position:absolute;
+      width:100%;
+      height:100%;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(0,0,0,.02) 0px,
+          rgba(0,0,0,.02) 1px,
+          transparent 1px,
+          transparent 6px
+        );
+      pointer-events:none;
+    }
+
+    .title{
+      position:absolute;
+      top:20px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:28px;
+      color:#444;
+    }
+
+    .photo{
+      position:absolute;
+      width:170px;
+      height:170px;
+      object-fit:cover;
+      border-radius:15px;
+      border:6px solid white;
+      box-shadow:0 10px 25px rgba(0,0,0,.25);
+      transition:.3s;
+    }
+
+    .photo:hover{
+      transform:scale(1.15) rotate(0deg) !important;
+      z-index:10;
+    }
+
+    .p1{ top:100px; left:80px; transform:rotate(-8deg); }
+    .p2{ top:110px; left:300px; transform:rotate(6deg); }
+    .p3{ top:120px; left:520px; transform:rotate(-4deg); }
+    .p4{ top:90px; left:740px; transform:rotate(5deg); }
+
+    .p5{ top:295px; left:120px; transform:rotate(0deg); }
+    .p6{ top:310px; left:340px; transform:rotate(-6deg); }
+    .p7{ top:320px; left:575px; transform:rotate(4deg); }
+    .p8{ top:280px; left:780px; transform:rotate(-7deg); }
+
+    .p9{ top:515px; left:260px; transform:rotate(-5deg); }
+    .p10{ top:520px; left:525px; transform:rotate(6deg); }
+
+   /* 🔊 MUSIC CONTROL */
+.music-control{
+  position:fixed;
+  top:20px;
+  left:20px;
+  z-index:999;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 14px;
+  border-radius:40px;
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(8px);
+  cursor:pointer;
+}
+
+/* 💿 VINYL */
+.vinyl{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background: radial-gradient(circle at center,
+    #111 20%,
+    #333 40%,
+    #000 70%
+  );
+  position:relative;
+
+  animation: spin 2s linear infinite;
+}
+
+/* lubang tengah */
+.vinyl::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  width:10px;
+  height:10px;
+  background:#999;
+  border-radius:50%;
+  transform:translate(-50%, -50%);
+}
+
+/* pause state */
+.paused .vinyl{
+  animation-play-state: paused;
+  opacity:0.5;
+}
+
+/* ROTATION */
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+/* TEXT */
+.music-title{
+  color:white;
+  font-size:14px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+    @keyframes spin{
+      from{transform:rotate(0deg);}
+      to{transform:rotate(0deg);}
+    }
+
+    .paused .cassette{
+      animation-play-state:paused;
+      opacity:0.5;
+    }
+
+    /* TITLE */
+    .title{
+      position:absolute;
+      top:30px;
+      left:50%;
+      transform:translateX(-50%);
+      font-size:42px;
+      color:white;
+      font-weight:bold;
+      letter-spacing:2px;
+      text-shadow:3px 3px 0px #ff8fb1, 6px 6px 12px rgba(0,0,0,0.15);
+      z-index:10;
+    }
+
+    /* 📒 NOTE KECIL KANAN */
+.note-book{
+  position:absolute;
+  right:40px;
+  top:50%;
+  transform:translateY(-50%);
+  width:220px;
+  padding:20px;
+  background:#fffaf0;
+  border-radius:15px;
+  border:3px dashed #ffb6c1;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+  z-index:5;
+}
+
+.note-book h3{
+  font-size:16px;
+  color:#ff4f81;
+  margin-bottom:10px;
+}
+
+.note-book p{
+  font-size:14px;
+  color:#555;
+  line-height:1.5;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- BACKGROUND DECOR -->
+  <div class="bg-item book-icon"></div>
+  <div class="bg-item pencil"></div>
+  <div class="bg-item camera"></div>
+
+   <!-- 🔊 MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="music/Corinne Bailey Rae - Put Your Records On.mp3" type="audio/mpeg">
+</audio>
+
+<!-- MUSIC UI -->
+<div class="music-control" onclick="toggleMusic()">
+  <div class="vinyl"></div>
+  <span class="music-title">Corinne Bailey Rae - Put Your Records</span>
+</div>
+
+  <!-- PHOTO BOOK -->
+  <div class="book">
+
+    <div class="title">📖 Our Memories 📸</div>
+
+    <img class="photo p1" src="image/capture1.png">
+    <img class="photo p2" src="image/capture2.png">
+    <img class="photo p3" src="image/capture3.png">
+    <img class="photo p4" src="image/capture4.png">
+    <img class="photo p5" src="image/capture5.png">
+    <img class="photo p6" src="image/capture6.png">
+    <img class="photo p7" src="image/capture7.png">
+    <img class="photo p8" src="image/capture8.png">
+    <img class="photo p9" src="image/capture9.png">
+    <img class="photo p10" src="image/capture 10.png">
+
+  </div>
+
+  <!-- 📒 NOTE BOOK KECIL -->
+<div class="note-book">
+  <h3>💌 Note For You</h3>
+  <p>
+    Hiilloooww Babyy :3 💖<br><br>
+    Semoga kamu suka ya sama pemberian aku yang sangat sederhana ini, yaa walau ga seberapa malah ga ada harga nya (gratis cuy hehe, di bayar pake kepala panas doang).<br><br>
+    Terima kasih sudah hadir di hidupku yaa cayangku 🌸
+  </p>
+</div>
+
+  <!-- 🎵 SCRIPT -->
+  <script>
+    const music = document.getElementById("bgMusic");
+const ui = document.querySelector(".music-control");
+
+let isPlaying = false;
+
+const startTime = 49;
+const endTime = 240;
+
+/* autoplay */
+window.addEventListener("load", async () => {
+  try {
+    music.currentTime = startTime;
+    await music.play();
+    isPlaying = true;
+  } catch (e) {
+    console.log("Autoplay diblokir");
+  }
+});
+
+/* loop bagian lagu */
+music.addEventListener("timeupdate", () => {
+  if (music.currentTime >= endTime) {
+    music.currentTime = startTime;
+    music.play();
+  }
+});
+
+/* fallback klik */
+document.addEventListener("click", () => {
+  if (!isPlaying) {
+    music.currentTime = startTime;
+    music.play();
+    isPlaying = true;
+    ui.classList.remove("paused");
+  }
+});
+
+/* toggle music */
+function toggleMusic(){
+  if (music.paused) {
+    music.play();
+    isPlaying = true;
+    ui.classList.remove("paused");
+  } else {
+    music.pause();
+    isPlaying = false;
+    ui.classList.add("paused");
+  }
+}
+  </script>
+
+</body>
+</html>

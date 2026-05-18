@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gift For You 💖</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:"Comic Sans MS", cursive;
+    }
+
+    body{
+      height:100vh;
+      overflow:hidden;
+      position:relative;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      background:linear-gradient(
+      to bottom,
+      #1f1b4d 0%,
+      #33286b 40%,
+      #ff8fc7 100%);
+    }
+
+    /* MOON */
+    .moon{
+      position:absolute;
+      top:60px;
+      right:100px;
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      background:#fff5c4;
+      box-shadow:
+      0 0 30px #fff5c4,
+      0 0 70px rgba(255,245,196,.6);
+      animation:floatMoon 4s ease-in-out infinite;
+    }
+
+    /* STARS */
+    .star{
+      position:absolute;
+      width:4px;
+      height:4px;
+      background:white;
+      border-radius:50%;
+      animation:twinkle 2s infinite;
+    }
+
+    /* PHOTO COLLAGE */
+    .photo-collage{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      z-index:8;
+      width:320px;
+      height:700px;
+    }
+
+    .left-collage{left:20px;}
+    .right-collage{right:20px;}
+
+    .photo{
+      width:300px;
+      height:300px;
+      object-fit:cover;
+      border-radius:20px;
+      border:4px solid rgba(255,255,255,.7);
+      box-shadow:0 10px 20px rgba(0,0,0,.25),0 0 15px rgba(255,182,193,.4);
+      transition:.3s;
+      position:absolute;
+    }
+
+    .photo:hover{
+      transform:scale(1.05) rotate(2deg);
+      z-index:10;
+    }
+
+    .left-collage .p1{ top:0; left:200px; transform:rotate(-10deg); }
+    .left-collage .p2{ top:260px; left:0px; transform:rotate(6deg); }
+    .left-collage .p3{ top:520px; left:180px; transform:rotate(-5deg); }
+
+    .right-collage .p4{ top:10px; right:200px; transform:rotate(8deg); }
+    .right-collage .p5{ top:270px; right:0px; transform:rotate(-7deg); }
+    .right-collage .p6{ top:530px; right:180px; transform:rotate(5deg); }
+
+    /* CITY */
+    .city{
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:320px;
+      display:flex;
+      align-items:flex-end;
+      gap:15px;
+      padding:0 10px;
+    }
+
+    .building{
+      background:#2b235a;
+      width:90px;
+      position:relative;
+      border-top:4px solid #ff9fcf;
+      box-shadow: inset 0 0 20px rgba(255,255,255,.05);
+    }
+
+    .b1{height:180px;}
+    .b2{height:260px;}
+    .b3{height:210px;}
+    .b4{height:300px;}
+    .b5{height:170px;}
+    .b6{height:250px;}
+    .b7{height:200px;}
+    .b8{height:280px;}
+
+    .window{
+      position:absolute;
+      width:12px;
+      height:18px;
+      background:#ffe27a;
+      box-shadow:0 0 8px rgba(255,226,122,.8);
+    }
+
+    .road{
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:90px;
+      background:#1a1833;
+    }
+
+    .road::before{
+      content:"";
+      position:absolute;
+      top:40px;
+      left:0;
+      width:100%;
+      height:6px;
+      background:repeating-linear-gradient(to right,white 0 40px,transparent 40px 80px);
+    }
+
+    .card{
+      position:relative;
+      z-index:10;
+      width:500px;
+      padding:40px;
+      background:rgba(255,255,255,.12);
+      backdrop-filter:blur(10px);
+      border:2px solid rgba(255,255,255,.2);
+      border-radius:30px;
+      text-align:center;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
+
+    .card h1{
+      color:white;
+      font-size:45px;
+      text-shadow:3px 3px 0 #ff7eb6;
+    }
+
+    .card p{
+      margin-top:20px;
+      color:white;
+      font-size:18px;
+      line-height:1.8;
+    }
+
+    .next-btn{
+      margin-top:30px;
+      padding:15px 40px;
+      border:none;
+      border-radius:50px;
+      background:#ff5fa2;
+      color:white;
+      font-size:20px;
+      cursor:pointer;
+      transition:.3s;
+      box-shadow:0 0 20px rgba(255,95,162,.5);
+    }
+
+    .next-btn:hover{
+      transform:scale(1.08);
+      background:#ff3d8d;
+    }
+
+    @keyframes twinkle{
+      0%,100%{opacity:.3;}
+      50%{opacity:1;}
+    }
+
+    @keyframes floatMoon{
+      0%,100%{transform:translateY(0);}
+      50%{transform:translateY(-10px);}
+    }
+
+    /* ================= MUSIC ================= */
+
+    .music-card{
+      position:absolute;
+      top:150px;
+      left:center;
+      z-index:20;
+      padding:25px 20px;
+      border-radius:20px;
+      background:rgba(0,0,0,0.25);
+      backdrop-filter:blur(8px);
+      box-shadow:0 0 20px rgba(255,95,162,.3);
+    }
+
+    .music-control{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      cursor:pointer;
+    }
+
+    .vinyl{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      background:radial-gradient(circle at center,#111 20%,#333 40%,#000 70%);
+      position:relative;
+      animation:spin 2s linear infinite;
+    }
+
+    .vinyl::after{
+      content:"";
+      position:absolute;
+      top:50%;
+      left:50%;
+      width:10px;
+      height:10px;
+      background:#aaa;
+      border-radius:50%;
+      transform:translate(-50%,-50%);
+    }
+
+    @keyframes spin{
+      from{transform:rotate(0deg);}
+      to{transform:rotate(360deg);}
+    }
+
+    .music-small{
+      color:#fff;
+      font-size:11px;
+      opacity:.8;
+    }
+
+    .music-title{
+      color:white;
+      font-size:13px;
+      font-weight:bold;
+    }
+
+    .paused .vinyl{
+      animation-play-state:paused;
+      opacity:0.5;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="moon"></div>
+
+  <div class="star" style="top:80px; left:100px;"></div>
+  <div class="star" style="top:120px; left:300px;"></div>
+  <div class="star" style="top:200px; left:600px;"></div>
+  <div class="star" style="top:150px; left:900px;"></div>
+  <div class="star" style="top:90px; left:1200px;"></div>
+  <div class="star" style="top:250px; left:1400px;"></div>
+
+  <!-- MUSIC CARD (NEW) -->
+  <div class="music-card">
+    <div class="music-control" onclick="toggleMusic()">
+      <div class="vinyl"></div>
+      <div>
+        <div class="music-small"><b>your favorite music :3</b></div>
+        <div class="music-title">Ripples - beabadoobee</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLLAGE -->
+  <div class="photo-collage left-collage">
+    <img src="image/photo1.jpg" class="photo p1">
+    <img src="image/photo2.jpg" class="photo p2">
+    <img src="image/photo3.jpg" class="photo p3">
+  </div>
+
+  <div class="photo-collage right-collage">
+    <img src="image/photo5.jpg" class="photo p4">
+    <img src="image/photo7.jpg" class="photo p5">
+    <img src="image/photo6.jpg" class="photo p6">
+  </div>
+
+  <div class="card">
+    <h1>This Is My Beautiful Girl🌸</h1>
+
+    <p>
+      My Love, My Princess, My Honey, My Sweeety, My Girl, My Future Wife, My Sweet Girl, My Pretty Girl, My Smart Girl, My Hardworking Girl, 
+      My Baby, My Sayang, My Whole Universe, My Everything, And Also My Mommy :p
+    </p>
+
+    <button class="next-btn" onclick="window.location.href='gift3.html'">
+      Maybe Next??? ✨
+    </button>
+  </div>
+
+  <div class="city">
+    <div class="building b1"></div>
+    <div class="building b2"></div>
+    <div class="building b3"></div>
+    <div class="building b4"></div>
+    <div class="building b5"></div>
+    <div class="building b6"></div>
+    <div class="building b7"></div>
+    <div class="building b8"></div>
+  </div>
+
+  <div class="road"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="music/Beabadoobee - Ripples.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+const ui = document.querySelector(".music-control");
+
+let isPlaying = false;
+
+const startTime = 65;
+const endTime = 200;
+
+/* autoplay */
+window.addEventListener("load", async () => {
+  try {
+    music.currentTime = startTime;
+    await music.play();
+    isPlaying = true;
+  } catch (e) {
+    console.log("Autoplay diblokir");
+  }
+});
+
+/* loop bagian lagu */
+music.addEventListener("timeupdate", () => {
+  if (music.currentTime >= endTime) {
+    music.currentTime = startTime;
+    music.play();
+  }
+});
+
+/* fallback klik */
+document.addEventListener("click", () => {
+  if (!isPlaying) {
+    music.currentTime = startTime;
+    music.play();
+    isPlaying = true;
+    ui.classList.remove("paused");
+  }
+});
+
+/* toggle music */
+function toggleMusic(){
+  if (music.paused) {
+    music.play();
+    isPlaying = true;
+    ui.classList.remove("paused");
+  } else {
+    music.pause();
+    isPlaying = false;
+    ui.classList.add("paused");
+  }
+}
+
+function openLetter(){
+  window.location.href = "gift1.html";
+}
+  </script>
+
+</body>
+</html>
