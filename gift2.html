@@ -263,6 +263,36 @@
       opacity:0.5;
     }
 
+    /* 🌠 SHOOTING STAR EFFECT */
+.shooting-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 80px;
+  background: linear-gradient(white, rgba(255,255,255,0));
+  opacity: 0;
+  transform: rotate(45deg);
+  animation: shoot 2.5s linear forwards;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow: 0 0 10px white;
+}
+
+@keyframes shoot {
+  0% {
+    opacity: 0;
+    transform: translate(0,0) rotate(135deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(600px, 600px) rotate(135deg);
+  }
+}
+
   </style>
 </head>
 
@@ -385,6 +415,31 @@ function toggleMusic(){
 function openLetter(){
   window.location.href = "gift1.html";
 }
+
+/* 🌠 SHOOTING STAR GENERATOR */
+function createShootingStar() {
+  const star = document.createElement("div");
+  star.classList.add("shooting-star");
+
+  // posisi random dari atas layar
+  star.style.left = Math.random() * window.innerWidth + "px";
+  star.style.top = Math.random() * 50 + "px";
+
+  // ukuran random
+  const size = 1 + Math.random() * 2;
+  star.style.width = size + "px";
+  star.style.height = size * 60 + "px";
+
+  document.body.appendChild(star);
+
+  // hapus setelah animasi selesai
+  setTimeout(() => {
+    star.remove();
+  }, 2500);
+}
+
+/* jalankan berkala */
+setInterval(createShootingStar, 800);
   </script>
 
 </body>
