@@ -225,6 +225,56 @@
       50%{transform:translateY(-8px);}
     }
 
+    /* 🌈 RAINBOW ARC (MELENGKUNG) */
+.rainbow {
+  position: absolute;
+  top: 180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 450px;
+
+  border-radius: 50%;
+  
+  background: conic-gradient(
+    from 180deg,
+    red,
+    orange,
+    yellow,
+    green,
+    cyan,
+    blue,
+    violet,
+    red
+  );
+
+  /* bikin jadi setengah lingkaran */
+  -webkit-mask: radial-gradient(circle at center bottom,
+    transparent 45%,
+    black 46%
+  );
+  mask: radial-gradient(circle at center bottom,
+    transparent 45%,
+    black 46%
+  );
+
+  opacity: 0.35;
+  filter: blur(40px);
+  animation: rainbowFloat 6s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* animasi pelangi naik turun sedikit */
+@keyframes rainbowFloat {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(15px);
+  }
+}
+
   </style>
 </head>
 
@@ -240,6 +290,8 @@
   <div class="vinyl"></div>
   <span class="music-title">If You Want To - beabadoobee</span>
 </div>
+
+<div class="rainbow"></div>
 
 <!-- SUN -->
 <div class="sun"></div>
