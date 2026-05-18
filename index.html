@@ -203,6 +203,28 @@
       50%{transform:translateY(-6px) rotate(1deg);}
     }
 
+    /* 💖 LOVE EFFECT */
+.heart {
+  position: fixed;
+  top: -10px;
+  font-size: 20px;
+  color: #ff4f81;
+  animation: fallLove linear forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes fallLove {
+  0% {
+    transform: translateY(-10px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
   </style>
 </head>
 
@@ -245,7 +267,7 @@ const ui = document.querySelector(".music-control");
 
 let isPlaying = false;
 
-const startTime = 4;
+const startTime = 0;
 const endTime = 186;
 
 /* autoplay */
@@ -293,6 +315,33 @@ function toggleMusic(){
 function openLetter(){
   window.location.href = "gift1.html";
 }
+
+/* 💖 LOVE FALL EFFECT */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+
+  heart.innerHTML = "💖";
+
+  // posisi random
+  heart.style.left = Math.random() * 100 + "vw";
+
+  // ukuran random
+  heart.style.fontSize = (16 + Math.random() * 20) + "px";
+
+  // durasi random
+  heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+  document.body.appendChild(heart);
+
+  // hapus setelah selesai animasi
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+/* jalankan terus */
+setInterval(createHeart, 400);
 
 </script>
 
